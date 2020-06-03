@@ -41,12 +41,12 @@ A more complex usage example would be demultiplexing an MPEG transport stream in
     >>> ff = FFmpeg(
     ...     inputs={'input.ts': None},
     ...     outputs={
-    ...         'video.mp4': ['-map', '0:0', '-c:a', 'copy', '-f', 'mp4'],
+    ...         'video.mp4': ['-map', '0:0', '-c:v', 'copy', '-f', 'mp4'],
     ...         'audio.mp4': ['-map', '0:1', '-c:a', 'copy', '-f', 'mp4']
     ...     }
     ... )
     >>> ff.cmd
-    'ffmpeg -i input.ts -map 0:1 -c:a copy -f mp4 audio.mp4 -map 0:0 -c:a copy -f mp4 video.mp4'
+    'ffmpeg -i input.ts -map 0:1 -c:v copy -f mp4 audio.mp4 -map 0:0 -c:a copy -f mp4 video.mp4'
     >>> ff.run()
 
 .. warning::
@@ -60,19 +60,19 @@ A more complex usage example would be demultiplexing an MPEG transport stream in
         >>> ff = FFmpeg(
         ...     inputs={'input.ts': None},
         ...     outputs={
-        ...         'video.mp4': ['-map 0:0', '-c:a copy', '-f mp4'],
+        ...         'video.mp4': ['-map 0:0', '-c:v copy', '-f mp4'],
         ...         'audio.mp4': ['-map 0:1', '-c:a copy', '-f mp4']
         ...     }
         ... )
         >>> ff.cmd
-        'ffmpeg -hide_banner -i input.ts "-map 0:1" "-c:a copy" "-f mp4" audio.mp4 "-map 0:0" "-c:a copy" "-f mp4" video.mp4'
+        'ffmpeg -hide_banner -i input.ts "-map 0:1" "-c:a copy" "-f mp4" audio.mp4 "-map 0:0" "-c:v copy" "-f mp4" video.mp4'
         >>>
         >>> ff.run(stderr=PIPE)
         Traceback (most recent call last):
           File "<stdin>", line 1, in <module>
           File "/Users/ay/projects/personal/ffmpy/ffmpy.py", line 104, in run
             raise FFRuntimeError(self.cmd, ff_command.returncode, out[0], out[1])
-        ffmpy.FFRuntimeError: `ffmpeg -hide_banner -i input.ts "-map 0:1" "-c:a copy" "-f mp4" audio.mp4 "-map 0:0" "-c:a copy" "-f mp4" video.mp4` exited with status 1
+        ffmpy.FFRuntimeError: `ffmpeg -hide_banner -i input.ts "-map 0:1" "-c:a copy" "-f mp4" audio.mp4 "-map 0:0" "-c:v copy" "-f mp4" video.mp4` exited with status 1
 
         STDOUT:
 
